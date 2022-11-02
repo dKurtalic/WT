@@ -35,12 +35,12 @@ h4 {
 
 
 .prisutan {
-    background-color: green;
+    background-color: rgb(119, 174, 119);
     height: 60px;
 }
 
 .neprisutan {
-    background-color: red;
+    background-color: rgb(225, 97, 97);
     height: 60px;
 }
 
