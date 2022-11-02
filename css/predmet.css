@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: linear-gradient(to bottom, #d2e1f6, #ccd6ed, #c7cae3, #c2bfd8, #beb3cd);
+    background-image: linear-gradient(to bottom, #ecf2fa, #d3daeb, #c7cae3, #c2bfd8, #9280aa);
 
 }
 
@@ -29,12 +29,31 @@ ul {
     list-style: none;
 }
 
+.sadrzaj div {
+    scroll-margin-block-start: 120px;
+    margin-left: 50px;
+}
+
 .sadrzaj {
     margin-top: 120px;
     width: 100%;
 
-    background-image: linear-gradient(to bottom, #d2e1f6, #ccd6ed, #c7cae3, #c2bfd8, #beb3cd);
+    background-image: linear-gradient(to bottom, #ecf2fa, #d3daeb, #c7cae3, #c2bfd8, #9280aa);
 }
+
+
+.studijLinija {
+    background-color: #beb3cd;
+    height: 3px;
+    width: 95%
+}
+
+.godinaLinija {
+    background-color: #c7cae3;
+    height: 1px;
+    width: 95%;
+}
+
 
 .slicica {
     font-style: italic;
@@ -45,6 +64,7 @@ ul {
 .godina {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
+    scroll-margin-inline-start: 120px;
 }
 
 .godina div {
