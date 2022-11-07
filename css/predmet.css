@@ -1,9 +1,14 @@
 #menu {
     position: fixed;
-    background-color: #bcc9dd;
+    background-image: url("../res/Screenshot_3.png");
+    color: white;
     top: 0%;
     left: 0%;
     width: 100%;
+}
+
+#menu ul li a {
+    color: white;
 }
 
 body {
@@ -31,16 +36,19 @@ ul {
 
 .sadrzaj div {
     scroll-margin-block-start: 120px;
-    margin-left: 50px;
+    margin-left: 2px;
 }
 
 .sadrzaj {
-    margin-top: 120px;
+    padding-top: 120px;
     width: 100%;
-
     background-image: linear-gradient(to bottom, #ecf2fa, #d3daeb, #c7cae3, #c2bfd8, #9280aa);
 }
 
+.pravaSlicica {
+    height: 17px;
+    display: flex;
+}
 
 .studijLinija {
     background-color: #beb3cd;
@@ -65,6 +73,7 @@ ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
     scroll-margin-inline-start: 120px;
+    gap: 10px;
 }
 
 .godina div {
@@ -77,7 +86,6 @@ h3 {
 
 .predmet {
     border: 2px solid black;
-    width: 80%;
     padding: 1px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
@@ -90,14 +98,23 @@ h3 {
 
 .izborni {
     border: 2px solid black;
-    width: 80%;
-    padding: 0 5px;
     background-color: powderblue;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.izborni:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.6);
+}
+
+.siviPredmeti:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.6);
 }
 
 .siviPredmeti {
     border: 2px solid black;
-    width: 80%;
-    padding: 0 5px;
+    padding: 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
     background-color: gray;
 }
