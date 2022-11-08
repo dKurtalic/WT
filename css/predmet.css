@@ -1,4 +1,4 @@
-#menu {
+.menu {
     position: fixed;
     background-image: url("../res/Screenshot_3.png");
     color: white;
@@ -7,7 +7,9 @@
     width: 100%;
 }
 
-#menu ul li a {
+
+
+.menu ul li a {
     color: white;
 }
 
@@ -16,17 +18,17 @@ body {
 
 }
 
-#menu ul li {
+.menu ul li {
     display: flex;
     margin-left: 20px;
 }
 
-#menu ul li>ul {
+.menu ul li>ul {
     display: flex;
     gap: 5px;
 }
 
-#menu ul {
+.menu ul {
     float: left;
 }
 
@@ -117,4 +119,14 @@ h3 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     background-color: gray;
+}
+
+@media(max-width:852px) {
+    .menu {
+        position: relative;
+    }
+
+    .menu ul {
+        float: none;
+    }
 }
