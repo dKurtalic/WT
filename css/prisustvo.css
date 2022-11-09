@@ -11,6 +11,10 @@ table.glavna,
     width: 15px;
 }
 
+.nepostojeca {
+    display: none;
+}
+
 .rasiri {
     width: 200px;
 }
@@ -50,11 +54,11 @@ table.unutrasnja,
 .unutrasnja td {
     margin-top: 0px;
     border-collapse: collapse;
-    padding: 0 px;
+    padding: 0;
 
 }
 
 .bezMargine {
     margin: 0px;
-    padding: 0px;
+    padding: 0;
 }
