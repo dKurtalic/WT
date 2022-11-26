@@ -1,19 +1,19 @@
-table.glavna,
-.glavna th,
-.glavna td {
+table,
+td,
+th,
+tr {
     text-align: left;
     border: 2px solid black;
     border-collapse: collapse;
+    padding: 10px;
 }
+
 
 
 .naziv {
     width: 15px;
 }
 
-.nepostojeca {
-    display: none;
-}
 
 .rasiri {
     width: 200px;
@@ -54,11 +54,27 @@ table.unutrasnja,
 .unutrasnja td {
     margin-top: 0px;
     border-collapse: collapse;
-    padding: 0;
+    padding: 5px;
 
 }
 
 .bezMargine {
     margin: 0px;
     padding: 0;
+}
+
+button {
+    margin: 10px;
+    color: rgb(249, 160, 160);
+    background-color: brown;
+    transition: transform .2s;
+}
+
+button:hover {
+    transform: scale(1.2);
+}
+
+body {
+    margin: auto;
+    width: 95%;
 }
