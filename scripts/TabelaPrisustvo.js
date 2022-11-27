@@ -10,7 +10,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
     divRef.innerHTML = "";
     var najvecaSedmica = Math.max.apply(Math, podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica; }));
     var ispravnost = true;
-
+    var mojaMinimalnaPrisustvovanaSedmica;
     var trenutnaSedmica = najvecaSedmica;
     var tabela;
     var popuniTabelu = function () {
@@ -23,9 +23,15 @@ let TabelaPrisustvo = function (divRef, podaci) {
             tabela += "<td>" + podaci.studenti[i].ime + "</td>";
             var indeks = podaci.studenti[i].index;
             tabela += "<td>" + indeks + "</td>";
-            var mojaPrisustva = podaci.prisustva.filter(function (prisustvo) { return prisustvo.index == indeks; })
+
+            var mojaPrisustva = podaci.prisustva.filter(function (prisustvo) { if (prisustvo.index == indeks) { return prisustvo.sedmica; } });
+            mojaPrisustva = mojaPrisustva.map(function (prisustvo) { return prisustvo.sedmica });
+
+            var mojaPosljednjaPrisustvovanaSedmica = Math.max.apply(Math, mojaPrisustva);
+            mojaMinimalnaPrisustvovanaSedmica = Math.min.apply(Math, mojaPrisustva);
+
             var j = 0;
-            for (; j < mojaPrisustva.length; j++) {
+            for (; j < mojaPosljednjaPrisustvovanaSedmica; j++) {
                 if (j == trenutnaSedmica - 1) {
                     prikaziDetalje(indeks);
                 }
@@ -59,8 +65,8 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
 
     let izracunajPrisustvoZaStudenta = function (index, sedmica) {
-        var ima = podaci.prisustva.filter(function (prisustvo) { return prisustvo.index == index; }).length > 0;
-
+        var ima = podaci.prisustva.filter(function (prisustvo) { return prisustvo.index == index && prisustvo.sedmica == sedmica; }).length > 0;
+        if (sedmica == 1 && !ima) return 0;
         if (!ima) return 0;
         var brojOdrzanih = podaci.brojPredavanjaSedmicno + podaci.brojVjezbiSedmicno;
 
@@ -101,20 +107,23 @@ let TabelaPrisustvo = function (divRef, podaci) {
             if (prisustvo.vjezbe < 0 || prisustvo.predavanja < 0) ispravnost = false;
         });
 
-
+        var jedinstveniIndeksi;
         //postoje dva studenta s istim indeksom      
         if (ispravnost) {
-            var duplikati = podaci.studenti.map(function (student) { return student.index; });
-            duplikati = duplikati.filter(function (item, index) { return duplikati.indexOf(item) == index });
-            ispravnost = (duplikati.length == podaci.studenti.length);
+            jedinstveniIndeksi = podaci.studenti.map(function (student) { return student.index; });
+            jedinstveniIndeksi = jedinstveniIndeksi.filter(function (item, index) { return jedinstveniIndeksi.indexOf(item) == index });
+            ispravnost = (jedinstveniIndeksi.length == podaci.studenti.length);
         }
 
 
         //Npr. uneseno je prisustvo za sedmice 1 i 3 ali nijedan student nema prisustvo za sedmicu 2
         if (ispravnost) {
             var sedmice = podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica });
+
+
             for (var i = 0; i < podaci.prisustva.length - 1; i++) {
-                if (!sedmice.includes(i + 1) && i != najvecaSedmica) { ispravnost = false; break; }
+
+                if (i != 0 && !sedmice.includes(i + 1) && i != najvecaSedmica) { ispravnost = false; break; }
             }
         }
 
@@ -195,7 +204,10 @@ let TabelaPrisustvo = function (divRef, podaci) {
     }
 
     var prikaziBezDetalja = function (indeks, sedmica) {
-        tabela += "<td>" + izracunajPrisustvoZaStudenta(indeks, sedmica) + "%" + "</td>";
+        var prisustvo = izracunajPrisustvoZaStudenta(indeks, sedmica);
+        if (prisustvo == 0) prisustvo = " ";
+        else prisustvo = prisustvo + "%";
+        tabela += "<td>" + prisustvo + "</td>";
     }
 
 
@@ -220,6 +232,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
     let prethodnaSedmica = function () {
         if (ispravnost) {
             trenutnaSedmica--;
+            if (trenutnaSedmica < mojaMinimalnaPrisustvovanaSedmica) trenutnaSedmica = mojaMinimalnaPrisustvovanaSedmica;
             if (trenutnaSedmica < 1) trenutnaSedmica = 1;
             if (trenutnaSedmica > 0) popuniTabelu();
         }
