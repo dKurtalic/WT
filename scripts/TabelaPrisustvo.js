@@ -123,7 +123,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
             for (var i = 0; i < podaci.prisustva.length - 1; i++) {
 
-                if (i != 0 && !sedmice.includes(i + 1) && i != najvecaSedmica) { ispravnost = false; break; }
+                if (i != 0 && !sedmice.includes(i + 1) && i < najvecaSedmica) { ispravnost = false; break; }
             }
         }
 
@@ -138,6 +138,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
                 }
             }
         }
+
 
         //broj prisustva na predavanju ili vjezbi je veci od broja odrzanih predavanja/vjezbi
         if (ispravnost) {
