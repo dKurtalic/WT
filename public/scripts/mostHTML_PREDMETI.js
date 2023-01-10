@@ -1,3 +1,4 @@
+
 window.onload = function () {
     pozoviAjax.getPredmeti(ispisi);
 };
@@ -32,14 +33,17 @@ function vratiNaPocetnu(poruka) {
     document.getElementById("uspjesnaPrijava").style.display = "block";
 }
 function promijeniPrisustvo(index, sedmica, brojPredavanja, brojVjezbi) {
+    console.log("ovov " + index, sedmica, brojPredavanja, brojVjezbi);
     var prisustvo = { sedmica: sedmica, predavanja: brojPredavanja, vjezbe: brojVjezbi };
     var json = JSON.stringify(prisustvo);
     console.log(json);
     var naziv = document.getElementById("nazivPredmeta").innerHTML;
     pozoviAjax.postPrisustvo(naziv, index, json, crtanje);
+
 }
 function crtanje(arg) {
     var divRef = document.getElementById("tabelaZaPopunit");
     console.log("crtamoo");
     TabelaPrisustvo(divRef, arg);
+
 }
