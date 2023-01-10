@@ -9,6 +9,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
     divRef.innerHTML = "";
     var najvecaSedmica = Math.max.apply(Math, podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica; }));
+    console.log("najveca sedmica je " + najvecaSedmica);
     var ispravnost = true;
     var mojaMinimalnaPrisustvovanaSedmica;
     var trenutnaSedmica = najvecaSedmica;
@@ -191,7 +192,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
         tabela += "</tr><tr>"
 
         for (var g = 0; g < brojPrisustvovanihPredavanja; g++) {
-            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + (brojNeprisustvovanihPredavanja + 1) + "," + brojNeprisustvovanihVjezbi + ") class=\"prisutan\"></td>";
+            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + (brojPrisustvovanihPredavanja - 1) + "," + brojNeprisustvovanihVjezbi + ") class=\"prisutan\"></td>";
         }
 
         for (var l = 0; l < brojNeprisustvovanihPredavanja; l++) {
@@ -199,11 +200,11 @@ let TabelaPrisustvo = function (divRef, podaci) {
         }
 
         for (var g = 0; g < brojPrisustvovanihVjezbi; g++) {
-            tabela += "<td onclick=promijeniPrisustvo(indeks,trenutnaSedmica,brojPrisustvovanihVjezbi+1) class=\"prisutan\"></td>";
+            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi - 1) + ") class=\"prisutan\"></td>";
         }
 
         for (var l = 0; l < brojNeprisustvovanihVjezbi; l++) {
-            tabela += "<td onclick=promijeniPrisustvo(indeks,trenutnaSedmica,brojNeprisustvovanihVjezbi-1) class=\"neprisutan\"></td>"
+            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi + 1) + ") class=\"neprisutan\"></td>"
         }
 
         tabela += "</tr>"

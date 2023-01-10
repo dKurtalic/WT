@@ -4,6 +4,7 @@ const pozoviAjax = (() => {
     // ako postoji greška poruka se prosljeđuje u error parametar callback-a, a data je tada null
 
     function impl_getPredmet(naziv, fnCallback) {
+
         var ajax = new XMLHttpRequest();
         ajax.onreadystatechange = function () {
             if (ajax.readyState == 4 && ajax.status == 200) {
@@ -71,16 +72,18 @@ const pozoviAjax = (() => {
         ajax.onreadystatechange = function () {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var jsonRez = JSON.parse(ajax.responseText);
-                // fnCallback(jsonRez);
+                console.log("DOBRO, RESPONSE: " + jsonRez);
+                console.log("prisustva: " + jsonRez.prisustva);
+                fnCallback(jsonRez);
             }
             else if (ajax.readyState == 4) {
-                // fnCallback(ajax.statusText);
+                fnCallback(ajax.statusText);
             }
         }
         ajax.open("POST", "http://localhost:3000/prisustvo/predmet/" + naziv + "/student/" + index, true);
         ajax.setRequestHeader("Content-Type", "application/json");
-        console.log("poslano prisustvo:  " + prisustvo);
-        ajax.send({ prisustvo: prisustvo });
+        ajax.send(prisustvo);
+
     }
 
     return {

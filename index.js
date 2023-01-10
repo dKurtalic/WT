@@ -23,13 +23,13 @@ app.use(session({
     saveUninitialized: false
 }));
 
-async function checkCredentials(username, password, req) {
+function checkCredentials(username, password, req) {
     let result;
     var numNastavnici = nastavnici.length;
     for (i = 0; i < numNastavnici; i++) {
         if (nastavnici[i].nastavnik.username == username) {
             try {
-                result = await bcrypt.compare(password, nastavnici[i].nastavnik.password_hash);
+                result = bcrypt.compare(password, nastavnici[i].nastavnik.password_hash);
             }
             catch {
                 return false;
@@ -44,12 +44,12 @@ async function checkCredentials(username, password, req) {
 }
 
 
-app.post("/login", async (req, res) => {
+app.post("/login", (req, res) => {
 
     let poruka = "";
     let username = req.body.username;
     let password = req.body.password;
-    let uspjesnost = await checkCredentials(username, password, req);
+    let uspjesnost = checkCredentials(username, password, req);
     if (uspjesnost === false || uspjesnost === undefined || uspjesnost === null) {
         poruka = "Neuspješna prijava";
         res.json({ poruka: poruka });
@@ -70,10 +70,12 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/prijava", function (req, res) {
+
     res.sendFile(__dirname + "/public/html/prijava.html");
 });
 
 app.get("/predmeti", function (req, res) {
+
     if (req.session.username == null && req.session.username == undefined) {
         res.json({ error: "Nastavnik nije loginovan" });
     }
@@ -94,28 +96,47 @@ app.get("/predmet/:naziv", function (req, res) {
 
 });
 
-app.get("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
-    const indeks = req.params.indeks;
-    const nazivPredmeta = req.params.naziv;
-    const prisustvo = req.body.prisustvo;
-    /* for (i = 0; i < prisustva.length; i++) {
-         if (prisustva[i]["predmet"] == nazivPredmeta) {
-             for (j = 0; j < prisustva[i]["studenti"].length; j++) {
-                 if (prisustva[i]["studenti"][j].index == indeks) {
-                     for (k = 0; k < prisustva[i]["prisustva"].length; k++) {
-                         prisustva[i]["prisustva"][k]["predavanja"] = prisustvo.predavanja;
-                         prisustva[i]["prisustva"][k]["vjezbe"] = prisustvo.vjezbe;
-                     }
-                 }
-             }
-         }*
-         
-}
-    const noviJson = JSON.stringify(prisustva);
-console.log("NOVI JSON: " + noviJson);
-fs.writeFileSync("prisustva.json", noviJson);
-*/
-    console.log("indeks je " + indeks + "; naziv predmeta " + nazivPredmeta + ", prisustvo : " + prisustvo);
+app.post("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
+
+
+    var indeks = req.params.index;
+    var nazivPredmeta = req.params.naziv;
+    console.log("naziv predmeta" + nazivPredmeta);
+    var ind = 0;
+    for (i = 0; i < prisustva.length; i++) {
+        if (prisustva[i]["predmet"] == nazivPredmeta) {
+            for (j = 0; j < prisustva[i]["prisustva"].length; j++) {
+                if (prisustva[i]["prisustva"][j].index == indeks) {
+                    ind = i;
+                    prisustva[i]["prisustva"][j].predavanja = req.body.predavanja;
+                    prisustva[i]["prisustva"][j].vjezbe = req.body.vjezbe;
+
+                }
+            }
+        }
+
+    }
+    var stringJson = JSON.stringify(prisustva);
+    //RADIII
+    fs.writeFile('./public/data/prisustva.json', stringJson, function (error) {
+        if (error) {
+            console.error("There was an error writing to the file:", error);
+        } else {
+            console.log("The file was written successfully.");
+        }
+    });
+    var noviJson = prisustva[ind];
+    res.send(noviJson);
+
+    /*
+    
+        // const noviJson = prisustva;
+        // const noviJson = JSON.stringify(prisustva);
+        console.log("NOVI JSON: " + noviJson);
+        //  
+     
+        
+        */
 
 });
 

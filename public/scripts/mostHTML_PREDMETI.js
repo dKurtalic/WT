@@ -32,10 +32,14 @@ function vratiNaPocetnu(poruka) {
     document.getElementById("uspjesnaPrijava").style.display = "block";
 }
 function promijeniPrisustvo(index, sedmica, brojPredavanja, brojVjezbi) {
-    const prisustvo = { "sedmica": sedmica, "predavanja": brojPredavanja, "vjezbe": brojVjezbi };
-    const json = JSON.stringify(prisustvo);
-    console.log("most ");
+    var prisustvo = { sedmica: sedmica, predavanja: brojPredavanja, vjezbe: brojVjezbi };
+    var json = JSON.stringify(prisustvo);
+    console.log(json);
     var naziv = document.getElementById("nazivPredmeta").innerHTML;
-    console.log("naziv dohvacenog predmeta je " + naziv);
-    pozoviAjax.postPrisustvo(naziv, index, sedmica, brojPredavanja, brojVjezbi, null);
+    pozoviAjax.postPrisustvo(naziv, index, json, crtanje);
+}
+function crtanje(arg) {
+    var divRef = document.getElementById("tabelaZaPopunit");
+    console.log("crtamoo");
+    TabelaPrisustvo(divRef, arg);
 }
