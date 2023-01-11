@@ -11,7 +11,6 @@ let TabelaPrisustvo = function (divRef, podaci) {
     var najvecaSedmica = Math.max.apply(Math, podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica; }));
     var najmanjaSedmica = Math.min.apply(Math, podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica; }));
 
-    console.log("najveca sedmica je " + najvecaSedmica);
     var ispravnost = true;
     var mojaMinimalnaPrisustvovanaSedmica;
     var trenutnaSedmica = najvecaSedmica;
@@ -36,7 +35,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
             mojaMinimalnaPrisustvovanaSedmica = Math.min.apply(Math, mojaPrisustva);
 
             var j = 0;
-            for (; j < mojaPosljednjaPrisustvovanaSedmica; j++) {
+            for (; j < najvecaSedmica; j++) {
                 if (j == trenutnaSedmica - 1) {
                     prikaziDetalje(indeks);
                 }
@@ -89,7 +88,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
                 return podaci.prisustva[k].predavanja;
             }
         }
-        return 0;
+        return "nijeUneseno";
     }
     var daLiJeBioPrisutanNaVjezbama = function (indeks, sedmica) {
         for (var k = 0; k < podaci.prisustva.length; k++) {
@@ -97,7 +96,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
                 return podaci.prisustva[k].vjezbe;
             }
         }
-        return 0;
+        return "nijeUneseno";
     }
 
     var postojiLiStudentSaIndeksom = function (indeks) {
@@ -172,12 +171,22 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
     var prikaziDetalje = function (indeks) {
 
-        var brojPrisustvovanihPredavanja = daLiJeBioPrisutanNaPredavanju(indeks, trenutnaSedmica);
-        var brojNeprisustvovanihPredavanja = podaci.brojPredavanjaSedmicno - brojPrisustvovanihPredavanja;
-        var brojPrisustvovanihVjezbi = daLiJeBioPrisutanNaVjezbama(indeks, trenutnaSedmica);
-        var brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno - brojPrisustvovanihVjezbi;
+        var brojNeprisustvovanihPredavanja;
+        var brojNeprisustvovanihVjezbi;
 
-        console.log("broj pris pred " + brojPrisustvovanihPredavanja + ", brojnepris pred " + brojNeprisustvovanihPredavanja + ", broj pris vje" + brojPrisustvovanihVjezbi + ", broj neprs vje " + brojNeprisustvovanihVjezbi);
+        var brojPrisustvovanihPredavanja = daLiJeBioPrisutanNaPredavanju(indeks, trenutnaSedmica);
+
+        if (brojPrisustvovanihPredavanja == "nijeUneseno")
+            brojNeprisustvovanihPredavanja = podaci.brojPredavanjaSedmicno;
+        else
+            brojNeprisustvovanihPredavanja = podaci.brojPredavanjaSedmicno - brojPrisustvovanihPredavanja;
+
+        var brojPrisustvovanihVjezbi = daLiJeBioPrisutanNaVjezbama(indeks, trenutnaSedmica);
+        if (brojPrisustvovanihVjezbi == "nijeUneseno")
+            brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno;
+        else brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno - brojPrisustvovanihVjezbi;
+
+        //console.log("broj pris pred " + brojPrisustvovanihPredavanja + ", brojnepris pred " + brojNeprisustvovanihPredavanja + ", broj pris vje" + brojPrisustvovanihVjezbi + ", broj neprs vje " + brojNeprisustvovanihVjezbi);
         // ugniježdena tabela
         tabela += "<td class=\"bezMargine\">";
         tabela += "<table class=\"unutrasnja\">";
@@ -190,21 +199,39 @@ let TabelaPrisustvo = function (divRef, podaci) {
         }
         tabela += "</tr><tr>"
 
-        for (var g = 0; g < brojPrisustvovanihPredavanja; g++) {
-            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + (brojPrisustvovanihPredavanja - 1) + "," + brojPrisustvovanihVjezbi + ") class=\"prisutan\"></td>";
+        if (brojPrisustvovanihPredavanja == "nijeUneseno") {
+            for (var g = 0; g < podaci.brojPredavanjaSedmicno; g++) {
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 1 + "," + 0 + ") class=\"neuneseno\"></td>";
+            }
+        }
+        else {
+            for (var g = 0; g < brojPrisustvovanihPredavanja; g++) {
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + (brojPrisustvovanihPredavanja - 1) + "," + brojPrisustvovanihVjezbi + ") class=\"prisutan\"></td>";
+            }
+            for (var l = 0; l < brojNeprisustvovanihPredavanja; l++) {
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + (brojPrisustvovanihPredavanja + 1) + "," + brojPrisustvovanihVjezbi + ") class=\"neprisutan\"></td>"
+            }
         }
 
-        for (var l = 0; l < brojNeprisustvovanihPredavanja; l++) {
-            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + (brojPrisustvovanihPredavanja + 1) + "," + brojPrisustvovanihVjezbi + ") class=\"neprisutan\"></td>"
+
+        if (brojPrisustvovanihVjezbi == "nijeUneseno") {
+
+            for (var g = 0; g < podaci.brojVjezbiSedmicno; g++) {
+
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 0 + "," + 1 + " class=\"neuneseno\")></td>";
+            }
+        }
+        else {
+            for (var g = 0; g < brojPrisustvovanihVjezbi; g++) {
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi - 1) + ") class=\"prisutan\"></td>";
+            }
+            for (var l = 0; l < brojNeprisustvovanihVjezbi; l++) {
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi + 1) + ") class=\"neprisutan\"></td>"
+            }
         }
 
-        for (var g = 0; g < brojPrisustvovanihVjezbi; g++) {
-            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi - 1) + ") class=\"prisutan\"></td>";
-        }
 
-        for (var l = 0; l < brojNeprisustvovanihVjezbi; l++) {
-            tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi + 1) + ") class=\"neprisutan\"></td>"
-        }
+
 
         tabela += "</tr>"
         tabela += "</table>"

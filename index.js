@@ -102,19 +102,28 @@ app.post("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
     var indeks = req.params.index;
     var nazivPredmeta = req.params.naziv;
     console.log("naziv predmeta" + nazivPredmeta);
+
     var ind = 0;
+    var promijenjeno = false;
     for (i = 0; i < prisustva.length; i++) {
         if (prisustva[i]["predmet"] == nazivPredmeta) {
             for (j = 0; j < prisustva[i]["prisustva"].length; j++) {
                 if (prisustva[i]["prisustva"][j].index == indeks) {
-                    ind = i;
-                    prisustva[i]["prisustva"][j].predavanja = req.body.predavanja;
-                    prisustva[i]["prisustva"][j].vjezbe = req.body.vjezbe;
-
+                    if (prisustva[i]["prisustva"][j].sedmica == req.body.sedmica) {
+                        ind = i;
+                        promijenjeno = true;
+                        console.log("nije promijenjeno, index: " + indeks);
+                        prisustva[i]["prisustva"][j].predavanja = req.body.predavanja;
+                        prisustva[i]["prisustva"][j].vjezbe = req.body.vjezbe;
+                    }
                 }
             }
         }
 
+    }
+    if (!promijenjeno) {
+        console.log("push");
+        prisustva[ind]["prisustva"].push({ sedmica: req.body.sedmica, predavanja: req.body.predavanja, vjezbe: req.body.vjezbe, index: indeks });
     }
     var stringJson = JSON.stringify(prisustva);
     //RADIII

@@ -41,6 +41,7 @@ function promijeniPrisustvo(index, sedmica, brojPredavanja, brojVjezbi) {
     pozoviAjax.postPrisustvo(naziv, index, json, crtanje);
 
 }
+
 function crtanje(arg) {
     var divRef = document.getElementById("tabelaZaPopunit");
     console.log("crtamoo");
