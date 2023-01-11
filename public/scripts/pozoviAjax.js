@@ -9,9 +9,7 @@ const pozoviAjax = (() => {
         ajax.onreadystatechange = function () {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var jsonRez = JSON.parse(ajax.responseText);
-                var divRef = document.getElementById("tabelaZaPopunit");
-                divRef.innerHTML = "";
-                fnCallback(divRef, jsonRez.prisustva);
+                fnCallback(jsonRez.prisustva);
             }
             else if (ajax.readyState == 4) {
                 fnCallback(ajax.statusText, null);
@@ -72,8 +70,6 @@ const pozoviAjax = (() => {
         ajax.onreadystatechange = function () {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 var jsonRez = JSON.parse(ajax.responseText);
-                console.log("DOBRO, RESPONSE: " + jsonRez);
-                console.log("prisustva: " + jsonRez.prisustva);
                 fnCallback(jsonRez);
             }
             else if (ajax.readyState == 4) {
