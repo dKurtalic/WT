@@ -186,6 +186,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
             brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno;
         else brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno - brojPrisustvovanihVjezbi;
 
+        //console.log("broj pris pred " + brojPrisustvovanihPredavanja + ", brojnepris pred " + brojNeprisustvovanihPredavanja + ", broj pris vje" + brojPrisustvovanihVjezbi + ", broj neprs vje " + brojNeprisustvovanihVjezbi);
         // ugniježdena tabela
         tabela += "<td class=\"bezMargine\">";
         tabela += "<table class=\"unutrasnja\">";
@@ -217,7 +218,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
             for (var g = 0; g < podaci.brojVjezbiSedmicno; g++) {
 
-                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 0 + "," + 1 + ") class=\"neuneseno\"></td>";
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 0 + "," + 1 + " class=\"neuneseno\")></td>";
             }
         }
         else {
@@ -264,6 +265,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
     let prethodnaSedmica = function () {
         if (ispravnost) {
             trenutnaSedmica--;
+            console.log("minimalna sedmica " + mojaMinimalnaPrisustvovanaSedmica);
             if (trenutnaSedmica < najmanjaSedmica) trenutnaSedmica = najmanjaSedmica;
             if (trenutnaSedmica < 1) trenutnaSedmica = 1;
             if (trenutnaSedmica > 0) popuniTabelu();

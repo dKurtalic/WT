@@ -101,6 +101,7 @@ app.post("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
 
     var indeks = req.params.index;
     var nazivPredmeta = req.params.naziv;
+    console.log("naziv predmeta" + nazivPredmeta);
 
     var ind = 0;
     var promijenjeno = false;
@@ -111,7 +112,7 @@ app.post("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
                     if (prisustva[i]["prisustva"][j].sedmica == req.body.sedmica) {
                         ind = i;
                         promijenjeno = true;
-                        console.log("mijenjanje");
+                        console.log("nije promijenjeno, index: " + indeks);
                         prisustva[i]["prisustva"][j].predavanja = req.body.predavanja;
                         prisustva[i]["prisustva"][j].vjezbe = req.body.vjezbe;
                     }
@@ -120,14 +121,22 @@ app.post("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
         }
 
     }
-    if (prisustva[ind]["prisustva"].find((x) => { return x.sedmica == req.body.sedmica && x.index == indeks })) console.log("nadjena sedmica");
-    if (!promijenjeno && !prisustva[ind]["prisustva"].find((x) => { return x.sedmica == req.body.sedmica && x.index == indeks })) {
-        console.log("push");
-        console.log("i je " + ind + ", pokusalo se ubacit index: " + indeks + ", sedmica " + req.body.sedmica + ", predavanja " + req.body.predavanja + ", vjezbe " + req.body.vjezbe);
-        prisustva[ind]["prisustva"].push({ sedmica: req.body.sedmica, predavanja: req.body.predavanja, vjezbe: req.body.vjezbe, index: parseInt(indeks) });
+    console.log("ind " + ind + ", promijenjeno " + promijenjeno + ", predmet " + nazivPredmeta);
+    if (!promijenjeno) {
+        for (i = 0; i < prisustva.length; i++) {
+            if (prisustva[i]["predmet"] == nazivPredmeta) {
+                console.log("step1");
+                if (!prisustva[i]["prisustva"].find((x) => { return x.sedmica == req.body.sedmica && x.index == indeks })) {
+                    console.log("DODAJE SE U PREDMET " + nazivPredmeta);
+
+                    prisustva[i]["prisustva"].push({ sedmica: req.body.sedmica, predavanja: req.body.predavanja, vjezbe: req.body.vjezbe, index: parseInt(indeks) });
+                }
+
+            }
+        }
     }
     var stringJson = JSON.stringify(prisustva);
-
+    //RADIII
     fs.writeFile('./public/data/prisustva.json', stringJson, function (error) {
         if (error) {
             console.error("There was an error writing to the file:", error);
@@ -137,6 +146,16 @@ app.post("/prisustvo/predmet/:naziv/student/:index", function (req, res) {
     });
     var noviJson = prisustva[ind];
     res.send(noviJson);
+
+    /*
+    
+        // const noviJson = prisustva;
+        // const noviJson = JSON.stringify(prisustva);
+        console.log("NOVI JSON: " + noviJson);
+        //  
+     
+        
+        */
 
 });
 

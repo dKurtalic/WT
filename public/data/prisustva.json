@@ -2,166 +2,71 @@
     {
         "studenti": [
             {
-                "ime": "Dina",
+                "ime": "Neko Nekic",
                 "index": 12345
             },
             {
-                "ime": "Neko Nekic",
+                "ime": "Drugi Neko",
                 "index": 12346
+            }
+        ],
+        "prisustva": [
+            {
+                "sedmica": 1,
+                "predavanja": 2,
+                "vjezbe": 1,
+                "index": 12345
             },
             {
-                "ime": "Novi",
-                "index": 12946
+                "sedmica": 2,
+                "predavanja": 2,
+                "vjezbe": 2,
+                "index": 12345
+            }
+        ],
+        "predmet": "PREDMET1",
+        "brojPredavanjaSedmicno": 2,
+        "brojVjezbiSedmicno": 2
+    },
+    {
+        "studenti": [
+            {
+                "ime": "Neko Nekic",
+                "index": 12345
+            },
+            {
+                "ime": "Drugi Neko",
+                "index": 12346
             }
         ],
         "prisustva": [
             {
                 "sedmica": 1,
                 "predavanja": 1,
-                "vjezbe": 2,
-                "index": 12345
-            },
-            {
-                "sedmica": 2,
-                "predavanja": 1,
-                "vjezbe": 2,
-                "index": 12345
-            },
-            {
-                "sedmica": 2,
-                "predavanja": 1,
-                "vjezbe": 0,
-                "index": 12346
-            },
-            {
-                "sedmica": 1,
-                "predavanja": 1,
-                "vjezbe": 0,
-                "index": 12346
-            },
-            {
-                "sedmica": 3,
-                "predavanja": 1,
                 "vjezbe": 1,
-                "index": 12946
-            },
-            {
-                "sedmica": 3,
-                "predavanja": 1,
-                "vjezbe": 0,
-                "index": 12346
-            },
-            {
-                "sedmica": 2,
-                "predavanja": 1,
-                "vjezbe": 0,
-                "index": 12946
+                "index": 12345
             },
             {
                 "sedmica": 1,
                 "predavanja": 0,
-                "vjezbe": 1,
-                "index": 12946
-            }
-        ],
-        "predmet": "PREDMET1",
-        "brojPredavanjaSedmicno": 3,
-        "brojVjezbiSedmicno": 2
-    },
-    {
-        "studenti": [
-            {
-                "ime": "Alem",
-                "index": 12345
-            },
-            {
-                "ime": "Najbolji student",
-                "index": 12346
-            },
-            {
-                "ime": "Moj brat",
-                "index": 12946
-            }
-        ],
-        "prisustva": [
-            {
-                "sedmica": 2,
-                "predavanja": 3,
-                "vjezbe": 1,
-                "index": 12345
-            },
-            {
-                "sedmica": 3,
-                "predavanja": 3,
-                "vjezbe": 1,
-                "index": 12345
-            },
-            {
-                "sedmica": 2,
-                "predavanja": 2,
-                "vjezbe": 1,
-                "index": 12346
-            },
-            {
-                "sedmica": 1,
-                "predavanja": 2,
-                "vjezbe": 1,
+                "vjezbe": 0,
                 "index": 12346
             },
             {
                 "sedmica": 2,
                 "predavanja": 1,
+                "vjezbe": 2,
+                "index": 12345
+            },
+            {
+                "sedmica": 2,
+                "predavanja": 2,
                 "vjezbe": 0,
-                "index": 12946
+                "index": 12346
             }
         ],
         "predmet": "PREDMET2",
-        "brojPredavanjaSedmicno": 3,
-        "brojVjezbiSedmicno": 2
-    },
-    {
-        "studenti": [
-            {
-                "ime": "Mama student",
-                "index": 12345
-            },
-            {
-                "ime": "Tata student",
-                "index": 12346
-            },
-            {
-                "ime": "Brat student",
-                "index": 12946
-            }
-        ],
-        "prisustva": [
-            {
-                "sedmica": 2,
-                "predavanja": 1,
-                "vjezbe": 2,
-                "index": 12345
-            },
-            {
-                "sedmica": 3,
-                "predavanja": 2,
-                "vjezbe": 2,
-                "index": 12345
-            },
-            {
-                "sedmica": 1,
-                "predavanja": 2,
-                "vjezbe": 1,
-                "index": 12346
-            },
-            {
-                "sedmica": 1,
-                "predavanja": 1,
-                "vjezbe": 2,
-                "index": 12946
-            }
-        ],
-        "predmet": "PREDMET3",
-        "brojPredavanjaSedmicno": 3,
+        "brojPredavanjaSedmicno": 2,
         "brojVjezbiSedmicno": 2
     }
 ]
