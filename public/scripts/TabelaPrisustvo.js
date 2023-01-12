@@ -215,10 +215,10 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
 
         if (brojPrisustvovanihVjezbi == "nijeUneseno") {
-
+            console.log("Broj prisustvovanih za index " + indeks + " je " + brojPrisustvovanihVjezbi);
             for (var g = 0; g < podaci.brojVjezbiSedmicno; g++) {
 
-                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 0 + "," + 1 + " class=\"neuneseno\")></td>";
+                tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 0 + "," + 1 + ") class=\"neuneseno\"></td>";
             }
         }
         else {
@@ -229,6 +229,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
                 tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi + 1) + ") class=\"neprisutan\"></td>"
             }
         }
+
 
 
 

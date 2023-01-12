@@ -44,7 +44,6 @@ function promijeniPrisustvo(index, sedmica, brojPredavanja, brojVjezbi) {
 
 function crtanje(arg) {
     var divRef = document.getElementById("tabelaZaPopunit");
-    console.log("crtamoo");
     TabelaPrisustvo(divRef, arg);
 
 }
