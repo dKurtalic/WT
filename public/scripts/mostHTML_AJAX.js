@@ -10,5 +10,5 @@ function ispisi(poruka) {
 function login() {
     var usernameInput = document.getElementById("usernameInput").value;
     var passwordInput = document.getElementById("passwordInput").value;
-    pozoviAjax.postLogin(usernameInput, passwordInput, ispisi);
+    poziviAjax.postLogin(usernameInput, passwordInput, ispisi);
 }

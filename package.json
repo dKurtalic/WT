@@ -3,7 +3,9 @@
     "bcrypt": "^5.1.0",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "path": "^0.12.7"
+    "mysql2": "^3.0.1",
+    "path": "^0.12.7",
+    "sequelize": "^6.28.0"
   },
   "name": "wt22p18917",
   "version": "1.0.0",

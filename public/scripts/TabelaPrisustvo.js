@@ -8,6 +8,9 @@ let TabelaPrisustvo = function (divRef, podaci) {
     //privatni atributi modula
 
     divRef.innerHTML = "";
+    console.log("\n\n U tabeli prisustvo Naziv predmeta " + podaci.predmet);
+
+    console.log("\n\n U tabeli prisustvo " + JSON.stringify(podaci.prisustva));
     var najvecaSedmica = Math.max.apply(Math, podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica; }));
     var najmanjaSedmica = Math.min.apply(Math, podaci.prisustva.map(function (prisustvo) { return prisustvo.sedmica; }));
 
@@ -186,7 +189,6 @@ let TabelaPrisustvo = function (divRef, podaci) {
             brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno;
         else brojNeprisustvovanihVjezbi = podaci.brojVjezbiSedmicno - brojPrisustvovanihVjezbi;
 
-        //console.log("broj pris pred " + brojPrisustvovanihPredavanja + ", brojnepris pred " + brojNeprisustvovanihPredavanja + ", broj pris vje" + brojPrisustvovanihVjezbi + ", broj neprs vje " + brojNeprisustvovanihVjezbi);
         // ugniježdena tabela
         tabela += "<td class=\"bezMargine\">";
         tabela += "<table class=\"unutrasnja\">";
@@ -215,7 +217,7 @@ let TabelaPrisustvo = function (divRef, podaci) {
 
 
         if (brojPrisustvovanihVjezbi == "nijeUneseno") {
-            console.log("Broj prisustvovanih za index " + indeks + " je " + brojPrisustvovanihVjezbi);
+
             for (var g = 0; g < podaci.brojVjezbiSedmicno; g++) {
 
                 tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + 0 + "," + 1 + ") class=\"neuneseno\"></td>";
@@ -229,7 +231,6 @@ let TabelaPrisustvo = function (divRef, podaci) {
                 tabela += "<td onclick=promijeniPrisustvo(" + indeks + "," + trenutnaSedmica + "," + brojPrisustvovanihPredavanja + "," + (brojPrisustvovanihVjezbi + 1) + ") class=\"neprisutan\"></td>"
             }
         }
-
 
 
 
@@ -266,7 +267,6 @@ let TabelaPrisustvo = function (divRef, podaci) {
     let prethodnaSedmica = function () {
         if (ispravnost) {
             trenutnaSedmica--;
-            console.log("minimalna sedmica " + mojaMinimalnaPrisustvovanaSedmica);
             if (trenutnaSedmica < najmanjaSedmica) trenutnaSedmica = najmanjaSedmica;
             if (trenutnaSedmica < 1) trenutnaSedmica = 1;
             if (trenutnaSedmica > 0) popuniTabelu();
